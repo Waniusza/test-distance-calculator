@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+    <preConditions>
+        <runningAs username="root"/>
+    </preConditions>
+    
+    <changeSet id="1" author="JanuszSokolow">
+        <createTable tableName="city">
+            <column name="city_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="latitude" type="DECIMAL(10, 8)"/>
+            <column name="longitude" type="DECIMAL(11, 8)"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="2" author="JanuszSokolow">
+        
+        <createTable tableName="distance">
+            <column name="distance_id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="fromCity" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="toCity" type="int">
+                <constraints nullable="false"/> 
+            </column>
+            <column name="distance" type="int"/>
+        </createTable>
+        
+    </changeSet>
+    
+    <changeSet id="3" author="JanuszSokolow">
+        <addForeignKeyConstraint baseTableName="distance"
+                                 baseColumnNames="fromCity"
+                                 constraintName="fk_city_from"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="city"
+                                 referencedColumnNames="city_id"/>
+        
+    </changeSet>
+    
+    <changeSet id="4" author="JanuszSokolow">
+        <addForeignKeyConstraint baseTableName="distance"
+                                 baseColumnNames="toCity"
+                                 constraintName="fk_city_to "
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedTableName="city"
+                                 referencedColumnNames="city_id"/>
+    </changeSet>
+</databaseChangeLog>
