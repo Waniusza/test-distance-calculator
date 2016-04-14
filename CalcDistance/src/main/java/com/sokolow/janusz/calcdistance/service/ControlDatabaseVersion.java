@@ -1,6 +1,6 @@
 package com.sokolow.janusz.calcdistance.service;
 
-import com.sokolow.janusz.calcdistance.constant.config;
+import com.sokolow.janusz.calcdistance.constant.configTmp;
 import com.sokolow.janusz.calcdistance.exception.CDDatabaseException;
 import com.sokolow.janusz.calcdistance.provider.DBConnector;
 import java.sql.Connection;
@@ -43,7 +43,7 @@ public class ControlDatabaseVersion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            rs = DriverManager.getConnection(config.DATABASE_URL, config.DATABASE_USER, config.DATABASE_PASSWORD)
+            rs = DriverManager.getConnection(configTmp.DATABASE_URL, configTmp.DATABASE_USER, configTmp.DATABASE_PASSWORD)
                     .createStatement()
                     .executeQuery(qry);
             result = "Got it!";
