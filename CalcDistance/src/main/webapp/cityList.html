@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <head>
-    <script src="https://code.jquery.com/jquery-2.2.2.min.js"   integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI="   crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"    crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
 
-<!--     Latest compiled and minified Bootstrap CSS 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-     Latest compiled and minified Bootstrap JavaScript 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
-
-    <!--<script type="text/javascript" src="/additional/js/dbScripts.js"></script>--> 
-    <!--<link rel="stylesheet" type="text/css" href="/additional/css/dbStyles.css"/>-->
     <title>Cities List</title>
     <meta charset="UTF-8">
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            console.log($('#cityList'));
-            $('#studentsList').DataTable({
-                "ajax": 'webapi/citiList'
+
+        function callback(r, status) {
+            console.log("Have callback: ", status, r)
+            var trHTML = '';
+
+            $.each(r, function (i, item) {
+//                console.log("Append ", i, item);
+                trHTML += '<tr><td>' + item.id + '</td><td>' + item.name + '</td></tr>';
             });
+
+            $('#cityList').append(trHTML);
+        }
+
+        function callbackError(r) {
+            console.log("Have error ", r)
+        }
+
+        $.ajax({
+            url: '/CalcDistance/webapi/citiList',
+            success: callback,
+            error: callbackError
         });
     </script>
 </head>
@@ -28,7 +35,7 @@
         <div id="header" class="jumbotron"></div>
         <nav id="fixedNavbar" class="navbar navbar-default navbar-fixed-top"></nav>
 
-        <table id="cityList" class="table table-responsive" cellspacing="0" width="100%">
+        <table id="cityList" class="table table-responsive" cellspacing="0" width="33%">
             <thead>
                 <tr>
                     <th>DB Index</th>

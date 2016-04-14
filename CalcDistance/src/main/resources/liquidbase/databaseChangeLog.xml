@@ -59,4 +59,16 @@
                                  referencedTableName="city"
                                  referencedColumnNames="city_id"/>
     </changeSet>
+    
+    <changeSet id="5" author="JanuszSokolow">
+        <addAutoIncrement   columnDataType="int"
+                            columnName="distance_id"
+                            incrementBy="1"
+                            tableName="distance"/>
+    </changeSet>
+    <changeSet id="6" author="JanuszSokolow">
+        <modifyDataType columnName="distance"
+                        newDataType="double"
+                        tableName="distance"/>
+    </changeSet>
 </databaseChangeLog>

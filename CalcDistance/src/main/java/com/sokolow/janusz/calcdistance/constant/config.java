@@ -11,4 +11,9 @@ public class config {
     public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/distance-calculator";
     public static final String MYSQL_JDBC_DRIVER = "com.mysql.jdbc.Driver";
     
+    
+    
+    /*
+        Calculator configuration
+    */
 }

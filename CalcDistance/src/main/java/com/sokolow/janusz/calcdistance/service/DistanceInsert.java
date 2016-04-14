@@ -14,19 +14,19 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Waniusza
  */
-@Path("cityInsert")
-public class CityInsert {
+@Path("distanceInsert")
+public class DistanceInsert {
 
-    Logger log = LogManager.getLogger(CityInsert.class.getCanonicalName());
+    Logger log = LogManager.getLogger(DistanceInsert.class.getCanonicalName());
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String findCities() {
+    public String onsertDistance() {
         log.debug(" handle");
 
         String qry;
-        qry = "INSERT INTO city (name, latitude, longitude) "
-                + "VALUES (\"Gdansk\", \"54.3475\", \"18.645278\")";
+        qry = "INSERT INTO distance (fromCity, toCity, distance) "
+                + "VALUES (4, 2, 24.645278)";
         String result;
 
         try {
@@ -35,11 +35,12 @@ public class CityInsert {
             DriverManager.getConnection(config.DATABASE_URL, config.DATABASE_USER, config.DATABASE_PASSWORD)
                     .createStatement()
                     .executeUpdate(qry);
-            result = "New city inserted!\n";
+            result = "New distance inserted!\n";
         } catch (SQLException | ClassNotFoundException ex) {
             log.error("Error on invoking database connection", ex);
             result = "Something goes wrong";
-        } 
+        }
+        
         return result;
     }
 

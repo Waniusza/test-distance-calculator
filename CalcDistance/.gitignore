@@ -21,4 +21,11 @@ local.properties
 ## IDEA
 #################
 
-*.idea/
+.idea/
+
+
+#################
+## Netbeans
+#################
+
+nb-configuration.xml

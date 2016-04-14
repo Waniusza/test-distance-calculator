@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+        <script type="text/javascript">
+            function radioChanged(t) {
+                console.log("radioChanged", t.value);
+                switch (t.value) {
+                    case "crowflight" :
+                    case "all" :
+                        $('#accuracySelector').show();
+                        break;
+                    case "matrix" :
+                        $('#accuracySelector').hide();
+                        break;
+                    default:
+                        console.error("Not supported method")
+                }
+            }
+            function callback(r, status) {
+                console.log("Have callback: ", status, r)
+                var optons = '';
+
+                $.each(r, function (i, item) {
+//                    console.log("Append ", i, item);
+                    optons += '<option value=' + item.id + '>' + item.name + '</toption>';
+                });
+                $('#cityFrom').append(optons);
+                $('#cityTo').append(optons);
+            }
+            function callbackError(r) {
+                console.error("Have error ", r)
+            }
+            $.ajax({
+                url: 'webapi/citiList',
+                success: callback,
+                error: callbackError
+            });
+        </script>
+    </head>
+    <body>
+        <form id="distanceForm" action="/CalcDistance/webapi/calculate" >
+            <label> Choose city from: </label>
+            <select id="cityFrom" name="cityFrom">            </select>
+            <br/>
+            <label> Choose city to: </label>
+            <select id="cityTo" name="cityTo">            </select>
+            <br/>
+
+            <label> Choose method </label><br>
+            <label><input type="radio" name="calcMethod" onchange="radioChanged(this)" value="crowflight"> Crowflight</label><br>
+            <label><input type="radio" name="calcMethod" onchange="radioChanged(this)" value="matrix"> Distance Matrix </label><br>
+            <label><input type="radio" name="calcMethod" onchange="radioChanged(this)" value="all"> All</label> <br>
+
+            <div id="accuracySelector" style="display: none;">
+                <label> Chooce accuracy </label><br>
+                <label><input type="radio" name="accuracy"  value="1"> Low</label><br>
+                <label><input type="radio" name="accuracy"  value="2"> Medium </label><br>
+                <label><input type="radio" name="accuracy"  value="3"> High</label> <br>
+            </div>
+            <input type="submit" value="Calculate">
+        </form>
+
+        <div id="response">
+
+        </div>
+    </body>
+
+    <script type='text/javascript'>
+        function succesfulCalculated(result) {
+            console.log("Calculated with result ", result.responseText);
+            var str = "TEST";
+            $("#response").html(str);
+            console.log($("#response").text());
+        }
+
+
+        function calculationError(er, erTypr) {
+            console.log("Error during calculations ", erTypr, er);
+            var str = "TEST";
+            $("#response").html(er.responseText);
+            console.log($("#response").text());
+        }
+
+        $("#distanceForm").submit(function (event) {
+
+            /* stop form from submitting normally */
+            event.preventDefault();
+            /* get some values from elements on the page: */
+            var $form = $(this),
+                    url = $form.attr('action');
+
+            console.log("Can post form ", $form);
+
+            url += "?cityFrom=" + $('#cityFrom').val() +
+                    "&cityTo=" + $('#cityTo').val() +
+                    "&calcMethod=" + $('input[name=calcMethod]:checked').val();
+            if ( ($('input[name=accuracy]:checked').val()) !== undefined) {
+                url += "&accuracy=" + $('input[name=accuracy]:checked').val();
+            }
+            console.log("Can post to ", url);
+//            console.log("Can post data ", data);
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: succesfulCalculated,
+                error: calculationError,
+                dataType: 'application/x-www-form-urlencoded'
+            });
+        });
+    </script>
+</html>

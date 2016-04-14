@@ -2,27 +2,29 @@ package com.sokolow.janusz.calcdistance.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
  * @author Waniusza
  */
-//@Getter
-//@Setter
-//@NoArgsConstructor
+@Getter
+@Setter
 @XmlRootElement
 public class City {
-    @XmlElement(name="id")
-    int id;
-    
-    @XmlElement(name="name")
+
+    @XmlElement(name = "id")
+    long id;
+
+    @XmlElement(name = "name")
     String name;
-    
-//    @XmlElement(name="latitude")
-//    Double latitude;
-//    
-//    @XmlElement(name="longitude")
-//    Double longitude;
+
+    @XmlElement(name = "latitude")
+    double latitude;
+
+    @XmlElement(name = "longitude")
+    double longitude;
 
     public City() {
     }
@@ -32,8 +34,14 @@ public class City {
         this.name = name;
     }
 
-//    @Override
-//    public String toString() {
-//        return "City id: " + this.id + " name: " + this.name;
-//    }
+    public City(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    @Override
+    public String toString() {
+        return "City " + this.name + " ( " + this.latitude + " : " + this.longitude + " )";
+    }
+
 }
