@@ -1,6 +1,6 @@
 package com.sokolow.janusz.calcdistance.service;
 
-import com.sokolow.janusz.calcdistance.constant.configTmp;
+import com.sokolow.janusz.calcdistance.constant.Config;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.ws.rs.GET;
@@ -30,9 +30,9 @@ public class DistanceInsert {
         String result;
 
         try {
-            Class.forName(configTmp.MYSQL_JDBC_DRIVER);
+            Class.forName(Config.MYSQL_JDBC_DRIVER);
 
-            DriverManager.getConnection(configTmp.DATABASE_URL, configTmp.DATABASE_USER, configTmp.DATABASE_PASSWORD)
+            DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_USER, Config.DATABASE_PASSWORD)
                     .createStatement()
                     .executeUpdate(qry);
             result = "New distance inserted!\n";

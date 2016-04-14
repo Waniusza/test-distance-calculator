@@ -4,7 +4,7 @@ package com.sokolow.janusz.calcdistance.constant;
  *
  * @author Waniusza
  */
-public class configTmp {
+public class Config {
 
     public static final String DATABASE_PASSWORD = "";
     public static final String DATABASE_USER = "root";

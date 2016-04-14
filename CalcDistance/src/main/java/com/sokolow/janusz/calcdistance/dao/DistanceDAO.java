@@ -1,6 +1,6 @@
 package com.sokolow.janusz.calcdistance.dao;
 
-import com.sokolow.janusz.calcdistance.constant.configTmp;
+import com.sokolow.janusz.calcdistance.constant.Config;
 import com.sokolow.janusz.calcdistance.exception.CDDatabaseException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,8 +24,8 @@ public class DistanceDAO {
         ResultSet rs = null;
         double distance;
         try {
-            Class.forName(configTmp.MYSQL_JDBC_DRIVER);
-            rs = DriverManager.getConnection(configTmp.DATABASE_URL, configTmp.DATABASE_USER, configTmp.DATABASE_PASSWORD)
+            Class.forName(Config.MYSQL_JDBC_DRIVER);
+            rs = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_USER, Config.DATABASE_PASSWORD)
                     .createStatement()
                     .executeQuery(qry);
 

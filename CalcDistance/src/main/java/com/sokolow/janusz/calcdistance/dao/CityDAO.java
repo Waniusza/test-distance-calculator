@@ -1,6 +1,6 @@
 package com.sokolow.janusz.calcdistance.dao;
 
-import com.sokolow.janusz.calcdistance.constant.configTmp;
+import com.sokolow.janusz.calcdistance.constant.Config;
 import com.sokolow.janusz.calcdistance.exception.CDDatabaseException;
 import com.sokolow.janusz.calcdistance.model.City;
 import java.sql.DriverManager;
@@ -26,8 +26,8 @@ public class CityDAO {
         ResultSet rs = null;
 
         try {
-            Class.forName(configTmp.MYSQL_JDBC_DRIVER);
-            rs = DriverManager.getConnection(configTmp.DATABASE_URL, configTmp.DATABASE_USER, configTmp.DATABASE_PASSWORD)
+            Class.forName(Config.MYSQL_JDBC_DRIVER);
+            rs = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_USER, Config.DATABASE_PASSWORD)
                     .createStatement()
                     .executeQuery(qry);
 
@@ -63,8 +63,8 @@ public class CityDAO {
         ResultSet rs = null;
 
         try {
-            Class.forName(configTmp.MYSQL_JDBC_DRIVER);
-            rs = DriverManager.getConnection(configTmp.DATABASE_URL, configTmp.DATABASE_USER, configTmp.DATABASE_PASSWORD)
+            Class.forName(Config.MYSQL_JDBC_DRIVER);
+            rs = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_USER, Config.DATABASE_PASSWORD)
                     .createStatement()
                     .executeQuery(qry);
 
